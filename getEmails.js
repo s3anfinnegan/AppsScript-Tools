@@ -1,7 +1,3 @@
-//Apps Script tool to fetch all email addresses in inbox
-//Context: I'm deleting a Gmail account bc I've reached max storage
-//         and I don't want to lose 3 yrs worth of contacts!
-
 function getEmails() {
   var emailAddresses = {};
   var threads = GmailApp.search("is:inbox OR is:sent");
@@ -20,5 +16,11 @@ function getEmails() {
   for (var key in emailAddresses) {
     emailArray.push(key);
   }
-  Logger.log(emailArray);
+ // Logger.log(emailArray);
+  var csvFile = emailArray.join("\n");
+  var file = DriveApp.createFile("email_addresses.csv", csvFile, MimeType.CSV);
+  Logger.log("File URL: " + file.getUrl());
 }
+
+
+
